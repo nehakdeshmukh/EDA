@@ -8,6 +8,7 @@ Created on Fri Jul  7 09:57:17 2023
 ## EDA  
 
 import pandas as pd 
+import plotly.figure_factory as ff
 
 # read Data set
 
@@ -47,3 +48,23 @@ import plotly.express as px
 fig = px.imshow(data_stat.T,text_auto=True,color_continuous_scale='RdBu_r')
 fig.update_layout(width=1000,height=1000)
 fig.show()
+
+
+# univariate Analysis
+
+# plot bar chart 
+# Get the list of column names except for "EC1"
+variables = list(data.columns)
+
+
+for variable in variables:
+    # Check if the variable is the target column (EC1 or EC2)
+    if variable == "EC1" or variable == "EC2":
+        continue
+    
+    fig = ff.create_distplot([data[variable]],[variable])
+    fig.show() 
+    
+    
+    
+    
