@@ -18,7 +18,32 @@ data.head(3)
 
 #Given : [EC1 - EC6] are the (binary) targets, although you are only asked to predict EC1 and EC2
 # Droping EC3 - EC6
-
 data = data.drop(['id', 'EC3', 'EC4', 'EC5', 'EC6'], axis=1)
 
 
+# duplicate rows 
+duplicate_rows_data = data[data.duplicated()]
+print("Number of duplicate rows: ", len(duplicate_rows_data))
+
+# data types
+print(data.dtypes)
+
+
+# missing values
+print(data.isnull().sum())
+
+# describe data + heatmap
+
+data_stat = data.describe()
+
+# removed count column
+data_stat = data_stat.drop("count",axis=0)
+
+
+# Plto stat as a heatmap
+
+import plotly.express as px
+
+fig = px.imshow(data_stat.T,text_auto=True,color_continuous_scale='RdBu_r')
+fig.update_layout(width=1000,height=1000)
+fig.show()
