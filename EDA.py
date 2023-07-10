@@ -111,3 +111,12 @@ fig.show()
 # pie Chart For EC2
 fig = go.Figure(data=[go.Pie(labels=[0,1], values=data[["EC2"]].value_counts() )])
 fig.show()
+
+# combine Pie chart of EC1 & EC2
+
+fig = go.Figure()
+for var in ["EC1","EC2"]:
+    fig.add_trace(go.Pie(labels=[0,1], values=data[[var]].value_counts(),name=var))
+    fig.update_layout(title=dict(text="Pie chart of {}".format(var)))
+    fig.show()
+    
