@@ -9,6 +9,8 @@ Created on Fri Jul  7 09:57:17 2023
 
 import pandas as pd 
 import plotly.figure_factory as ff
+import plotly.graph_objects as go
+
 
 # read Data set
 
@@ -65,6 +67,17 @@ for variable in variables:
     fig = ff.create_distplot([data[variable]],[variable])
     fig.show() 
     
+    
+# Box plot 
+
+for variable in variables:
+    # Check if the variable is the target column (EC1 or EC2)
+    if variable == "EC1" or variable == "EC2":
+        continue
+    fig = go.Figure()
+    fig.add_trace(go.Box(y=data[variable],name=variable))
+
+    fig.show()
     
     
     
