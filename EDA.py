@@ -93,3 +93,12 @@ fig = go.Figure()
 fig.add_trace(go.Bar(y=data[["EC2"]].value_counts(),name="EC2"))
                             
 fig.show()
+
+
+# combine cout plot for EC1 & EC2
+
+fig = go.Figure()
+for var in ["EC1","EC2"]:
+    fig.add_trace(go.Bar(y=data[[var]].value_counts(),name=var))
+                            
+fig.show()
