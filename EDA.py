@@ -102,3 +102,11 @@ for var in ["EC1","EC2"]:
     fig.add_trace(go.Bar(y=data[[var]].value_counts(),name=var))
                             
 fig.show()
+
+
+# pie Chart For EC1
+fig = go.Figure()
+# fig.add_trace(go.Bar(y=data[["EC1"]].value_counts(),name="EC1"))
+fig = go.Figure(data=[go.Pie(labels=[0,1], values=data[["EC1"]].value_counts() )])
+                            
+fig.show()
