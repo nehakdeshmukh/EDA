@@ -80,4 +80,9 @@ for variable in variables:
     fig.show()
     
     
-    
+# count Plot for EC1
+
+fig = go.Figure()
+fig.add_trace(go.Bar(y=data[["EC1"]].value_counts(),name="EC1"))
+                            
+fig.show()
