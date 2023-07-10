@@ -105,13 +105,9 @@ fig.show()
 
 
 # pie Chart For EC1
-
-fig = go.Figure()
 fig = go.Figure(data=[go.Pie(labels=[0,1], values=data[["EC1"]].value_counts() )])
 fig.show()
 
 # pie Chart For EC2
-
-fig = go.Figure()
 fig = go.Figure(data=[go.Pie(labels=[0,1], values=data[["EC2"]].value_counts() )])
 fig.show()
