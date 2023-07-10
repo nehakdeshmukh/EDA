@@ -86,3 +86,10 @@ fig = go.Figure()
 fig.add_trace(go.Bar(y=data[["EC1"]].value_counts(),name="EC1"))
                             
 fig.show()
+
+# count Plot for EC2
+
+fig = go.Figure()
+fig.add_trace(go.Bar(y=data[["EC2"]].value_counts(),name="EC2"))
+                            
+fig.show()
