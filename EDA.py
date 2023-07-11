@@ -120,3 +120,16 @@ for var in ["EC1","EC2"]:
     fig.update_layout(title=dict(text="Pie chart of {}".format(var)))
     fig.show()
     
+
+
+# Bivariate Analysis 
+
+
+#violin chart for EC1
+
+for variable in variables:
+    fig = go.Figure()
+    fig.add_trace(go.Violin(x=data["EC1"],y=data[variable]))
+    fig.update_layout( xaxis_title="EC1",  yaxis_title=variable)
+    fig.update_traces(box_visible=False, meanline_visible=True)
+    fig.show()
