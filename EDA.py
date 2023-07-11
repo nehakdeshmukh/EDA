@@ -160,3 +160,17 @@ for col in data:
                     output_df.loc[col] = ['r', np.sign(r), abs(round(r, 3)), round(p,6)]
                     
 output_df.sort_values(by=['Effect size', 'Stat'], ascending=[False, False])
+
+
+label="EC2"
+# Create an empty DataFrame to store output
+output_df = pd.DataFrame(columns=['Stat', '+1/-1 * ', 'Effect size', 'p-value'])
+
+for col in data:
+        if col != label:
+            if data[col].isnull().sum() == 0:
+                if is_numeric_dtype(data[col]):   # Calculate r and p
+                    r, p = stats.pearsonr(data[label], data[col])
+                    output_df.loc[col] = ['r', np.sign(r), abs(round(r, 3)), round(p,6)]
+                    
+output_df.sort_values(by=['Effect size', 'Stat'], ascending=[False, False])
