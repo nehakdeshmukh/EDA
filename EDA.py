@@ -10,7 +10,10 @@ Created on Fri Jul  7 09:57:17 2023
 import pandas as pd 
 import plotly.figure_factory as ff
 import plotly.graph_objects as go
-
+from scipy import stats
+import pandas as pd
+import numpy as np
+from pandas.api.types import is_numeric_dtype
 
 # read Data set
 
@@ -142,3 +145,18 @@ for variable in variables:
     fig.update_layout( xaxis_title="EC2",  yaxis_title=variable)
     fig.update_traces(box_visible=False, meanline_visible=True)
     fig.show()
+
+
+
+label="EC1"
+# Create an empty DataFrame to store output
+output_df = pd.DataFrame(columns=['Stat', '+1/-1 * ', 'Effect size', 'p-value'])
+
+for col in data:
+        if col != label:
+            if data[col].isnull().sum() == 0:
+                if is_numeric_dtype(data[col]):   # Calculate r and p
+                    r, p = stats.pearsonr(data[label], data[col])
+                    output_df.loc[col] = ['r', np.sign(r), abs(round(r, 3)), round(p,6)]
+                    
+output_df.sort_values(by=['Effect size', 'Stat'], ascending=[False, False])
