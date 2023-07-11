@@ -133,3 +133,12 @@ for variable in variables:
     fig.update_layout( xaxis_title="EC1",  yaxis_title=variable)
     fig.update_traces(box_visible=False, meanline_visible=True)
     fig.show()
+
+
+#violin chart for EC2
+for variable in variables:
+    fig = go.Figure()
+    fig.add_trace(go.Violin(x=data["EC2"],y=data[variable]))
+    fig.update_layout( xaxis_title="EC2",  yaxis_title=variable)
+    fig.update_traces(box_visible=False, meanline_visible=True)
+    fig.show()
