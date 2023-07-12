@@ -14,6 +14,13 @@ from scipy import stats
 import pandas as pd
 import numpy as np
 from pandas.api.types import is_numeric_dtype
+from sklearn.feature_selection import RFE
+from sklearn.ensemble import RandomForestClassifier
+import plotly.express as px
+
+import matplotlib.pyplot as plt
+import seaborn as sns
+
 
 # read Data set
 
@@ -48,7 +55,7 @@ data_stat = data_stat.drop("count",axis=0)
 
 # Plto stat as a heatmap
 
-import plotly.express as px
+
 
 fig = px.imshow(data_stat.T,text_auto=True,color_continuous_scale='RdBu_r')
 fig.update_layout(width=1000,height=1000)
@@ -190,3 +197,55 @@ fig.add_trace(
         colorscale='Viridis'
     )
 )
+
+
+
+### 
+# Separate the features (X) and the target variable (y) for EC1
+X_ec1 = data.drop(['EC1', 'EC2'], axis=1)  # Remove 'EC1' and 'EC2' from the features
+y_ec1 = data['EC1']
+
+# Separate the features (X) and the target variable (y) for EC2
+X_ec2 = data.drop(['EC1', 'EC2'], axis=1)  # Remove 'EC1' and 'EC2' from the features
+y_ec2 = data['EC2']
+
+# Create the estimator (model) for feature selection
+estimator = RandomForestClassifier()  # Replace with your desired estimator
+
+# Specify the number of features to select
+num_features = 7
+
+# Apply RFE to select the top features for EC1
+rfe_ec1 = RFE(estimator, n_features_to_select=num_features)
+X_rfe_ec1 = rfe_ec1.fit_transform(X_ec1, y_ec1)
+
+# Get the mask of selected features for EC1
+feature_mask_ec1 = rfe_ec1.support_
+
+# Get the selected feature names for EC1
+selected_features_ec1 = X_ec1.columns[feature_mask_ec1]
+
+# Apply RFE to select the top features for EC2
+rfe_ec2 = RFE(estimator, n_features_to_select=num_features)
+X_rfe_ec2 = rfe_ec2.fit_transform(X_ec2, y_ec2)
+
+# Get the mask of selected features for EC2
+feature_mask_ec2 = rfe_ec2.support_
+
+# Get the selected feature names for EC2
+selected_features_ec2 = X_ec2.columns[feature_mask_ec2]
+
+# Subset the dataframe with the selected features for EC1
+df_selected_ec1 = data[selected_features_ec1]
+
+# Add the EC1 column to the selected dataframe
+df_selected_ec1['EC1'] = data['EC1']
+
+# Subset the dataframe with the selected features for EC2
+df_selected_ec2 = data[selected_features_ec2]
+
+# Add the EC2 column to the selected dataframe
+df_selected_ec2['EC2'] = data['EC2']
+
+
+
