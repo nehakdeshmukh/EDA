@@ -174,3 +174,19 @@ for col in data:
                     output_df.loc[col] = ['r', np.sign(r), abs(round(r, 3)), round(p,6)]
                     
 output_df.sort_values(by=['Effect size', 'Stat'], ascending=[False, False])
+
+
+# correlation Heatmap
+
+
+df_corr = data.corr()
+
+fig = go.Figure()
+fig.add_trace(
+    go.Heatmap(
+        x = df_corr.columns,
+        y = df_corr.index,
+        z = np.array(df_corr),
+        colorscale='Viridis'
+    )
+)
