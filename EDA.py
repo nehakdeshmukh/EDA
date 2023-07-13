@@ -271,3 +271,21 @@ fig = go.Figure(data=go.Scatterpolar(
 fig.update_layout(polar=dict(radialaxis=dict(visible=True),),showlegend=False)
 
 fig.show()
+
+
+
+# Create the radar plot for EC2
+df_selected_ec2 = data[selected_features_ec2]
+values_ec2 = df_selected_ec2.mean().values.tolist()
+values_ec2 += values_ec2[:1]
+features_ec2 = selected_features_ec2.tolist() + [selected_features_ec2[0]]
+
+fig = go.Figure(data=go.Scatterpolar(
+  r=values_ec2,
+  theta=selected_features_ec2,
+  fill='toself'
+))
+
+fig.update_layout(polar=dict(radialaxis=dict(visible=True),),showlegend=False)
+
+fig.show()
