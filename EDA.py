@@ -247,8 +247,27 @@ df_selected_ec2 = data[selected_features_ec2]
 # Add the EC2 column to the selected dataframe
 df_selected_ec2['EC2'] = data['EC2']
 
-
+# scatter pairplot
 sns.pairplot(df_selected_ec1, diag_kind='kde', hue='EC1', plot_kws={'alpha': 0.6})
 plt.suptitle('Scatterplot Matrix - Top {} Features (by RFE) - EC1'.format(num_features))
 plt.tight_layout()
 plt.show()
+
+
+# radar plot
+
+# Create the radar plot for EC1
+df_selected_ec1 = data[selected_features_ec1]
+values_ec1 = df_selected_ec1.mean().values.tolist()
+values_ec1 += values_ec1[:1]
+features_ec1 = selected_features_ec1.tolist() + [selected_features_ec1[0]]
+
+fig = go.Figure(data=go.Scatterpolar(
+  r=values_ec1,
+  theta=selected_features_ec1,
+  fill='toself'
+))
+
+fig.update_layout(polar=dict(radialaxis=dict(visible=True),),showlegend=False)
+
+fig.show()
