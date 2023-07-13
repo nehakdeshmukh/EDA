@@ -247,8 +247,14 @@ df_selected_ec2 = data[selected_features_ec2]
 # Add the EC2 column to the selected dataframe
 df_selected_ec2['EC2'] = data['EC2']
 
-# scatter pairplot
+# scatter pairplot EC1
 sns.pairplot(df_selected_ec1, diag_kind='kde', hue='EC1', plot_kws={'alpha': 0.6})
+plt.suptitle('Scatterplot Matrix - Top {} Features (by RFE) - EC1'.format(num_features))
+plt.tight_layout()
+plt.show()
+
+# scatter pairplot EC2
+sns.pairplot(df_selected_ec2, diag_kind='kde', hue='EC2', plot_kws={'alpha': 0.6})
 plt.suptitle('Scatterplot Matrix - Top {} Features (by RFE) - EC1'.format(num_features))
 plt.tight_layout()
 plt.show()
