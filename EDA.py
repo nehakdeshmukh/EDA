@@ -21,6 +21,8 @@ import plotly.express as px
 import matplotlib.pyplot as plt
 import seaborn as sns
 
+from sklearn.preprocessing import StandardScaler
+from sklearn.cluster import KMeans
 
 # read Data set
 
@@ -295,3 +297,40 @@ fig = go.Figure(data=go.Scatterpolar(
 fig.update_layout(polar=dict(radialaxis=dict(visible=True),),showlegend=False)
 
 fig.show()
+
+# clustering Analysis 
+
+def preprocess_data(data):
+    # Scale the numerical features
+    scaler = StandardScaler()
+    numerical_features = data.columns[:-2]  
+    data[numerical_features] = scaler.fit_transform(data[numerical_features])
+    
+    return data
+
+def determine_optimal_clusters(data):
+    # Determine the optimal number of clusters using the elbow method
+    wcss = []
+    for i in range(1, 11):
+        kmeans = KMeans(n_clusters=i, init='k-means++', max_iter=300, n_init=10, random_state=0)
+        kmeans.fit(data)
+        wcss.append(kmeans.inertia_)
+    
+    
+    
+    # Create traces
+    fig = go.Figure()
+    fig.add_trace(go.Scatter(x=list(range(1, 11)), y=wcss, mode='lines'))
+    fig.update_layout(xaxis_title="Number of clusters",
+    yaxis_title="WCSS")
+    fig.show()
+    
+
+# Preprocess the data
+data = preprocess_data(data)
+
+# Determine the optimal number of clusters
+data_scaled = data.drop(['EC1', 'EC2'], axis=1)
+determine_optimal_clusters(data_scaled)
+
+
