@@ -334,3 +334,11 @@ data_scaled = data.drop(['EC1', 'EC2'], axis=1)
 determine_optimal_clusters(data_scaled)
 
 
+# cluster plot 
+# Create traces
+fig = go.Figure()
+fig.add_trace(go.Scatter(x=data["MinEStateIndex"], y=data["HallKierAlpha"],  mode='markers',marker_color=data['Cluster'],))
+fig.update_layout(xaxis_title="MinEStateIndex",yaxis_title="HallKierAlpha",title="Clusters")
+fig.update_layout(showlegend=True)
+
+fig.show()
