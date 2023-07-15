@@ -342,3 +342,12 @@ fig.update_layout(xaxis_title="MinEStateIndex",yaxis_title="HallKierAlpha",title
 
 
 fig.show()
+
+
+# model Building 
+
+# Load the training data
+train_data = pd.read_csv(r"C:\Neha\kaggle Projects\Git hub\EDA\dataset/train.csv")
+# Drop 'id' and 'ED' columns
+train_data_E1 = train_data.drop(columns=['id','EC2', 'EC3', 'EC4', 'EC5', 'EC6'])
+train_data_E2 = train_data.drop(columns=['id','EC1', 'EC3', 'EC4', 'EC5', 'EC6'])
