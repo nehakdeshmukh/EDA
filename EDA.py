@@ -25,6 +25,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.cluster import KMeans
 
 from sklearn.model_selection import train_test_split, GridSearchCV, cross_val_score, learning_curve
+from sklearn.metrics import accuracy_score, classification_report, confusion_matrix, roc_curve, precision_recall_curve, auc
 
 from sklearn.ensemble import GradientBoostingClassifier, AdaBoostClassifier, VotingClassifier
 # read Data set
@@ -378,4 +379,23 @@ grid_search_model1_EC1 = GridSearchCV(model1_EC1, param_grid, cv=10)
 grid_search_model1_EC1.fit(X_train_EC1, y_train_EC1)
 print("Best parameters for model1_EC1: ", grid_search_model1_EC1.best_params_)
 
+
+# Define the models for EC1 with the best parameters
+model1_EC1 = GradientBoostingClassifier(n_estimators=50, learning_rate=0.1)
+
+
+# Create the VotingClassifier with the best parameters
+ensemble_EC1 = VotingClassifier(estimators=[('gb', model1_EC1)], voting='soft')
+ensemble_EC1.fit(X_train_EC1, y_train_EC1)
+
+
+# Cross-validation
+scores_EC1 = cross_val_score(ensemble_EC1, X_train_EC1, y_train_EC1, cv=10)
+print("Cross-validation scores for EC1: ", scores_EC1)
+
+
+# Model evaluation EC1
+predictions_EC1 = ensemble_EC1.predict(X_test_EC1)
+print("Classification report for EC1: ")
+print(classification_report(y_test_EC1, predictions_EC1))
 
