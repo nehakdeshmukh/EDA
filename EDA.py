@@ -399,3 +399,22 @@ predictions_EC1 = ensemble_EC1.predict(X_test_EC1)
 print("Classification report for EC1: ")
 print(classification_report(y_test_EC1, predictions_EC1))
 
+
+# Confusion matrix EC1
+import seaborn as sns
+cm_EC1 = confusion_matrix(y_test_EC1, predictions_EC1)
+sns.heatmap(cm_EC1, annot=True, fmt='d')
+
+
+# ROC curve
+# This is for binary classification, you'll need to adjust for multiclass classification
+probs_EC1 = ensemble_EC1.predict_proba(X_test_EC1)[:, 1]
+fpr_EC1, tpr_EC1, _ = roc_curve(y_test_EC1, probs_EC1)
+plt.plot(fpr_EC1, tpr_EC1, label='EC1')
+
+plt.xlabel('False Positive Rate')
+plt.ylabel('True Positive Rate')
+plt.legend()
+plt.show()
+
+
