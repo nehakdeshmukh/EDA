@@ -24,6 +24,9 @@ import seaborn as sns
 from sklearn.preprocessing import StandardScaler
 from sklearn.cluster import KMeans
 
+from sklearn.model_selection import train_test_split, GridSearchCV, cross_val_score, learning_curve
+
+from sklearn.ensemble import GradientBoostingClassifier, AdaBoostClassifier, VotingClassifier
 # read Data set
 
 data = pd.read_csv(r"C:\Neha\kaggle Projects\Git hub\EDA\dataset/train.csv")
@@ -351,3 +354,18 @@ train_data = pd.read_csv(r"C:\Neha\kaggle Projects\Git hub\EDA\dataset/train.csv
 # Drop 'id' and 'ED' columns
 train_data_E1 = train_data.drop(columns=['id','EC2', 'EC3', 'EC4', 'EC5', 'EC6'])
 train_data_E2 = train_data.drop(columns=['id','EC1', 'EC3', 'EC4', 'EC5', 'EC6'])
+
+
+# Preprocessing
+# Let's assume all features need to be scaled
+scaler = StandardScaler()
+X_E1 = scaler.fit_transform(train_data_E1.drop(['EC1'], axis=1))
+X_E2 = scaler.fit_transform(train_data_E2.drop(['EC2'], axis=1))
+
+
+# Split the data into training and test sets for each target
+X_train_EC1, X_test_EC1, y_train_EC1, y_test_EC1 = train_test_split(X_E1, train_data_E1['EC1'], test_size=0.2, random_state=42)
+X_train_EC2, X_test_EC2, y_train_EC2, y_test_EC2 = train_test_split(X_E2, train_data_E2['EC2'], test_size=0.2, random_state=42)
+
+# Define the models for EC1
+model1_EC1 = GradientBoostingClassifier()
