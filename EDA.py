@@ -369,3 +369,13 @@ X_train_EC2, X_test_EC2, y_train_EC2, y_test_EC2 = train_test_split(X_E2, train_
 
 # Define the models for EC1
 model1_EC1 = GradientBoostingClassifier()
+
+# Hyperparameter tuning with GridSearchCV
+# This is just an example, you'll need to specify the parameters for your specific models
+param_grid = {'n_estimators': [50, 100, 200], 'learning_rate': [0.01, 0.1, 1]}
+
+grid_search_model1_EC1 = GridSearchCV(model1_EC1, param_grid, cv=10)
+grid_search_model1_EC1.fit(X_train_EC1, y_train_EC1)
+print("Best parameters for model1_EC1: ", grid_search_model1_EC1.best_params_)
+
+
