@@ -411,10 +411,27 @@ sns.heatmap(cm_EC1, annot=True, fmt='d')
 probs_EC1 = ensemble_EC1.predict_proba(X_test_EC1)[:, 1]
 fpr_EC1, tpr_EC1, _ = roc_curve(y_test_EC1, probs_EC1)
 plt.plot(fpr_EC1, tpr_EC1, label='EC1')
-
 plt.xlabel('False Positive Rate')
 plt.ylabel('True Positive Rate')
 plt.legend()
 plt.show()
 
+# Precision-recall curve
+precision_EC1, recall_EC1, _ = precision_recall_curve(y_test_EC1, probs_EC1)
+plt.plot(recall_EC1, precision_EC1, label='EC1')
+plt.xlabel('Recall')
+plt.ylabel('Precision')
+plt.legend()
+plt.show()
 
+
+# Learning curve EC1
+train_sizes, train_scores, test_scores = learning_curve(ensemble_EC1, X_train_EC1, y_train_EC1, cv=10)
+train_scores_mean = np.mean(train_scores, axis=1)
+test_scores_mean = np.mean(test_scores, axis=1)
+plt.plot(train_sizes, train_scores_mean, label='Training score')
+plt.plot(train_sizes, test_scores_mean, label='Cross-validation score')
+plt.xlabel('Training Set Size')
+plt.ylabel('Score')
+plt.legend()
+plt.show()
