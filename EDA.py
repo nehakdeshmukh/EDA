@@ -28,6 +28,8 @@ from sklearn.model_selection import train_test_split, GridSearchCV, cross_val_sc
 from sklearn.metrics import accuracy_score, classification_report, confusion_matrix, roc_curve, precision_recall_curve, auc
 
 from sklearn.ensemble import GradientBoostingClassifier, AdaBoostClassifier, VotingClassifier
+
+from catboost import CatBoostClassifier
 # read Data set
 
 data = pd.read_csv(r"C:\Neha\kaggle Projects\Git hub\EDA\dataset/train.csv")
@@ -435,3 +437,20 @@ plt.xlabel('Training Set Size')
 plt.ylabel('Score')
 plt.legend()
 plt.show()
+
+
+# Model 2
+
+model2_EC1 = CatBoostClassifier(verbose=False)
+
+grid_search_model2_EC1 = GridSearchCV(model2_EC1, param_grid, cv=10)
+grid_search_model2_EC1.fit(X_train_EC1, y_train_EC1)
+print("Best parameters for model2_EC1: ", grid_search_model2_EC1.best_params_)
+
+
+# Create the VotingClassifier with the best parameters
+ensemble_EC1 = VotingClassifier(estimators=[('cb', model2_EC1)], voting='soft')
+ensemble_EC1.fit(X_train_EC1, y_train_EC1)
+
+
+
