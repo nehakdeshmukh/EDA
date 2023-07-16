@@ -380,14 +380,48 @@ param_grid = {'n_estimators': [50, 100, 200], 'learning_rate': [0.01, 0.1, 1]}
 grid_search_model1_EC1 = GridSearchCV(model1_EC1, param_grid, cv=10)
 grid_search_model1_EC1.fit(X_train_EC1, y_train_EC1)
 print("Best parameters for model1_EC1: ", grid_search_model1_EC1.best_params_)
-
-
 # Define the models for EC1 with the best parameters
 model1_EC1 = GradientBoostingClassifier(n_estimators=50, learning_rate=0.1)
 
 
 # Create the VotingClassifier with the best parameters
 ensemble_EC1 = VotingClassifier(estimators=[('gb', model1_EC1)], voting='soft')
+ensemble_EC1.fit(X_train_EC1, y_train_EC1)
+
+# Model 2
+
+model2_EC1 = CatBoostClassifier(verbose=False)
+
+grid_search_model2_EC1 = GridSearchCV(model2_EC1, param_grid, cv=10)
+grid_search_model2_EC1.fit(X_train_EC1, y_train_EC1)
+print("Best parameters for model2_EC1: ", grid_search_model2_EC1.best_params_)
+
+model2_EC1 = CatBoostClassifier(n_estimators=50, learning_rate=0.1, verbose=False)
+
+# Create the VotingClassifier with the best parameters
+ensemble_EC1 = VotingClassifier(estimators=[('cb', model2_EC1)], voting='soft')
+ensemble_EC1.fit(X_train_EC1, y_train_EC1)
+
+
+# Model 3
+
+model3_EC1 = AdaBoostClassifier()
+
+grid_search_model3_EC1 = GridSearchCV(model3_EC1, param_grid, cv=10)
+grid_search_model3_EC1.fit(X_train_EC1, y_train_EC1)
+print("Best parameters for model3_EC1: ", grid_search_model3_EC1.best_params_)
+
+model3_EC1 = AdaBoostClassifier(n_estimators=200, learning_rate=0.1)
+
+# Create the VotingClassifier with the best parameters
+ensemble_EC1 = VotingClassifier(estimators=[ ('ab', model3_EC1)], voting='soft')
+ensemble_EC1.fit(X_train_EC1, y_train_EC1)
+
+
+##### Create the VotingClassifier with the best parameters for all models
+
+# Create the VotingClassifier with the best parameters
+ensemble_EC1 = VotingClassifier(estimators=[('gb', model1_EC1), ('cb', model2_EC1), ('ab', model3_EC1)], voting='soft')
 ensemble_EC1.fit(X_train_EC1, y_train_EC1)
 
 
