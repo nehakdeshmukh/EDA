@@ -543,3 +543,13 @@ model3_EC2 = QuadraticDiscriminantAnalysis(reg_param=0.5, tol=0.0001)
 # Create the VotingClassifier with the best parameters
 ensemble_EC2 = VotingClassifier(estimators=[('gb', model1_EC2), ('cb', model2_EC2), ('qda', model3_EC2)], voting='soft')
 ensemble_EC2.fit(X_train_EC2, y_train_EC2)
+
+# Cross-validation
+scores_EC2 = cross_val_score(ensemble_EC2, X_train_EC2, y_train_EC2, cv=10)
+print("Cross-validation scores for EC2: ", scores_EC2)
+
+
+# Model evaluation EC2
+predictions_EC2 = ensemble_EC2.predict(X_test_EC2)
+print("Classification report for EC2: ")
+print(classification_report(y_test_EC2, predictions_EC2))
