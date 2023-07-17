@@ -533,3 +533,13 @@ param_grid_qda = {'reg_param': [0.0, 0.5, 1.0], 'tol': [0.0001, 0.001, 0.01, 0.1
 grid_search_model3_EC2 = GridSearchCV(model3_EC2, param_grid_qda, cv=10)
 grid_search_model3_EC2.fit(X_train_EC2, y_train_EC2)
 print("Best parameters for model3_EC2: ", grid_search_model3_EC2.best_params_)
+
+
+# Define the models for EC2 with the best parameters
+model1_EC2 = GradientBoostingClassifier(n_estimators=50, learning_rate=0.1)
+model2_EC2 = CatBoostClassifier(n_estimators=50, learning_rate=0.1, verbose=False)
+model3_EC2 = QuadraticDiscriminantAnalysis(reg_param=0.5, tol=0.0001)
+
+# Create the VotingClassifier with the best parameters
+ensemble_EC2 = VotingClassifier(estimators=[('gb', model1_EC2), ('cb', model2_EC2), ('qda', model3_EC2)], voting='soft')
+ensemble_EC2.fit(X_train_EC2, y_train_EC2)
