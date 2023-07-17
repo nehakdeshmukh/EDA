@@ -553,3 +553,17 @@ print("Cross-validation scores for EC2: ", scores_EC2)
 predictions_EC2 = ensemble_EC2.predict(X_test_EC2)
 print("Classification report for EC2: ")
 print(classification_report(y_test_EC2, predictions_EC2))
+
+
+# Confusion matrix EC2
+cm_EC2 = confusion_matrix(y_test_EC2, predictions_EC2)
+sns.heatmap(cm_EC2, annot=True, fmt='d')
+
+# ROC curve
+probs_EC2 = ensemble_EC2.predict_proba(X_test_EC2)[:, 1]
+fpr_EC2, tpr_EC2, _ = roc_curve(y_test_EC2, probs_EC2)
+plt.plot(fpr_EC2, tpr_EC2, label='EC2')
+plt.xlabel('False Positive Rate')
+plt.ylabel('True Positive Rate')
+plt.legend()
+plt.show()
