@@ -513,4 +513,23 @@ model2_EC2 = CatBoostClassifier(verbose=False)
 model3_EC2 = QuadraticDiscriminantAnalysis()
 
 
+# --------------For hyperparameter grid search EC2 ---------------#
 
+# This is just an example, you'll need to specify the parameters for your specific models
+param_grid = {'n_estimators': [50, 100, 200], 'learning_rate': [0.01, 0.1, 1]}
+
+grid_search_model1_EC2 = GridSearchCV(model1_EC2, param_grid, cv=10)
+grid_search_model1_EC2.fit(X_train_EC2, y_train_EC2)
+print("Best parameters for model1_EC2: ", grid_search_model1_EC2.best_params_)
+
+grid_search_model2_EC2 = GridSearchCV(model2_EC2, param_grid, cv=10)
+grid_search_model2_EC2.fit(X_train_EC2, y_train_EC2)
+print("Best parameters for model2_EC2: ", grid_search_model2_EC2.best_params_)
+
+# Define the parameter grid for QuadraticDiscriminantAnalysis
+param_grid_qda = {'reg_param': [0.0, 0.5, 1.0], 'tol': [0.0001, 0.001, 0.01, 0.1]}
+
+# Perform grid search for QuadraticDiscriminantAnalysis
+grid_search_model3_EC2 = GridSearchCV(model3_EC2, param_grid_qda, cv=10)
+grid_search_model3_EC2.fit(X_train_EC2, y_train_EC2)
+print("Best parameters for model3_EC2: ", grid_search_model3_EC2.best_params_)
