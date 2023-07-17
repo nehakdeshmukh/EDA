@@ -30,6 +30,8 @@ from sklearn.metrics import accuracy_score, classification_report, confusion_mat
 from sklearn.ensemble import GradientBoostingClassifier, AdaBoostClassifier, VotingClassifier
 
 from catboost import CatBoostClassifier
+from sklearn.discriminant_analysis import QuadraticDiscriminantAnalysis
+
 # read Data set
 
 data = pd.read_csv(r"C:\Neha\kaggle Projects\Git hub\EDA\dataset/train.csv")
@@ -501,3 +503,14 @@ model3_EC1 = AdaBoostClassifier(n_estimators=200, learning_rate=0.1)
 # Create the VotingClassifier with the best parameters
 ensemble_EC1 = VotingClassifier(estimators=[ ('ab', model3_EC1)], voting='soft')
 ensemble_EC1.fit(X_train_EC1, y_train_EC1)
+
+
+# Add Models for EC2
+
+# Define the models for EC2
+model1_EC2 = GradientBoostingClassifier()
+model2_EC2 = CatBoostClassifier(verbose=False)
+model3_EC2 = QuadraticDiscriminantAnalysis()
+
+
+
