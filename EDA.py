@@ -569,7 +569,7 @@ plt.legend()
 plt.show()
 
 
-# ROc Curve for EC1 & EC2
+# ROC Curve for EC1 & EC2
 
 # This is for binary classification, you'll need to adjust for multiclass classification
 probs_EC1 = ensemble_EC1.predict_proba(X_test_EC1)[:, 1]
@@ -597,3 +597,18 @@ plt.xlabel('Recall')
 plt.ylabel('Precision')
 plt.legend()
 plt.show()
+
+
+
+## Learning curve EC1
+train_sizes, train_scores, test_scores = learning_curve(ensemble_EC1, X_train_EC1, y_train_EC1, cv=10)
+train_scores_mean = np.mean(train_scores, axis=1)
+test_scores_mean = np.mean(test_scores, axis=1)
+plt.plot(train_sizes, train_scores_mean, label='Training score')
+plt.plot(train_sizes, test_scores_mean, label='Cross-validation score')
+plt.xlabel('Training Set Size')
+plt.ylabel('Score')
+plt.legend()
+plt.show()
+
+
