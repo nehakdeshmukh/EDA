@@ -585,4 +585,15 @@ plt.ylabel('True Positive Rate')
 plt.legend()
 plt.show()
 
+# Precision-recall curve for EC1 & EC2
 
+precision_EC1, recall_EC1, _ = precision_recall_curve(y_test_EC1, probs_EC1)
+plt.plot(recall_EC1, precision_EC1, label='EC1')
+
+precision_EC2, recall_EC2, _ = precision_recall_curve(y_test_EC2, probs_EC2)
+plt.plot(recall_EC2, precision_EC2, label='EC2')
+
+plt.xlabel('Recall')
+plt.ylabel('Precision')
+plt.legend()
+plt.show()
