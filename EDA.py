@@ -33,6 +33,7 @@ from catboost import CatBoostClassifier
 from sklearn.discriminant_analysis import QuadraticDiscriminantAnalysis
 
 from sklearn.utils import resample
+import shap
 
 # read Data set
 
@@ -648,3 +649,11 @@ for _ in range(bootstrap_samples_EC2):
 
 confidence_interval_EC2 = np.percentile(bootstrap_scores_EC2, [2.5, 97.5])
 print("Confidence interval for EC2: ", confidence_interval_EC2)
+
+
+# Visualization:SHAP summary plot EC1
+
+# For the SHAP summary plot, you'll need to install the shap library and use a model that supports it
+explainer_EC1 = shap.TreeExplainer(ensemble_EC1.named_estimators_['gb'])
+shap_values_EC1 = explainer_EC1.shap_values(X_train_EC1)
+shap.summary_plot(shap_values_EC1, X_train_EC1, feature_names=train_data_E1.columns.tolist())
