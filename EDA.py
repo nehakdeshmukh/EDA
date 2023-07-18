@@ -567,3 +567,22 @@ plt.xlabel('False Positive Rate')
 plt.ylabel('True Positive Rate')
 plt.legend()
 plt.show()
+
+
+# ROc Curve for EC1 & EC2
+
+# This is for binary classification, you'll need to adjust for multiclass classification
+probs_EC1 = ensemble_EC1.predict_proba(X_test_EC1)[:, 1]
+fpr_EC1, tpr_EC1, _ = roc_curve(y_test_EC1, probs_EC1)
+plt.plot(fpr_EC1, tpr_EC1, label='EC1')
+
+probs_EC2 = ensemble_EC2.predict_proba(X_test_EC2)[:, 1]
+fpr_EC2, tpr_EC2, _ = roc_curve(y_test_EC2, probs_EC2)
+plt.plot(fpr_EC2, tpr_EC2, label='EC2')
+
+plt.xlabel('False Positive Rate')
+plt.ylabel('True Positive Rate')
+plt.legend()
+plt.show()
+
+
