@@ -32,6 +32,8 @@ from sklearn.ensemble import GradientBoostingClassifier, AdaBoostClassifier, Vot
 from catboost import CatBoostClassifier
 from sklearn.discriminant_analysis import QuadraticDiscriminantAnalysis
 
+from sklearn.utils import resample
+
 # read Data set
 
 data = pd.read_csv(r"C:\Neha\kaggle Projects\Git hub\EDA\dataset/train.csv")
@@ -623,3 +625,26 @@ plt.ylabel('Score')
 plt.legend()
 plt.show()
 
+
+# Confidence intervals
+bootstrap_samples_EC1 = 1000
+bootstrap_scores_EC1 = []
+
+for _ in range(bootstrap_samples_EC1):
+    bootstrap_sample = resample(predictions_EC1)
+    score = accuracy_score(y_test_EC1, bootstrap_sample)
+    bootstrap_scores_EC1.append(score)
+
+confidence_interval_EC1 = np.percentile(bootstrap_scores_EC1, [2.5, 97.5])
+print("Confidence interval for EC1: ", confidence_interval_EC1)
+
+bootstrap_samples_EC2 = 1000
+bootstrap_scores_EC2 = []
+
+for _ in range(bootstrap_samples_EC2):
+    bootstrap_sample = resample(predictions_EC2)
+    score = accuracy_score(y_test_EC2, bootstrap_sample)
+    bootstrap_scores_EC2.append(score)
+
+confidence_interval_EC2 = np.percentile(bootstrap_scores_EC2, [2.5, 97.5])
+print("Confidence interval for EC2: ", confidence_interval_EC2)
