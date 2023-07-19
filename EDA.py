@@ -34,6 +34,7 @@ from sklearn.discriminant_analysis import QuadraticDiscriminantAnalysis
 
 from sklearn.utils import resample
 import shap
+from matplotlib.colors import ListedColormap
 
 # read Data set
 
@@ -664,6 +665,49 @@ shap.summary_plot(shap_values_EC1, X_train_EC1, feature_names=train_data_E1.colu
 explainer_EC2 = shap.TreeExplainer(ensemble_EC2.named_estimators_['gb'])
 shap_values_EC2 = explainer_EC2.shap_values(X_train_EC2)
 shap.summary_plot(shap_values_EC2, X_train_EC2, feature_names=train_data_E2.columns.tolist())
+
+
+# Get feature importances
+importances = ensemble_EC1.named_estimators_['gb'].feature_importances_
+
+# Get the indices of the features sorted by importance
+indices = np.argsort(importances)[::-1]
+
+# Get the names of the features sorted by importance
+features_sorted = train_data_E1.columns[indices]
+
+## Decision boundary
+# Select two features
+X = X_train_EC1[:, :2]
+y = y_train_EC1
+
+# Fit the model
+ensemble_EC1.fit(X, y)
+
+# Create a grid of points
+x_min, x_max = X[:, 0].min() - 1, X[:, 0].max() + 1
+y_min, y_max = X[:, 1].min() - 1, X[:, 1].max() + 1
+xx, yy = np.meshgrid(np.arange(x_min, x_max, 0.02),
+                     np.arange(y_min, y_max, 0.02))
+
+# Predict the class for each point in the grid
+Z = ensemble_EC1.predict(np.c_[xx.ravel(), yy.ravel()])
+Z = Z.reshape(xx.shape)
+
+# Create a color map
+cmap_light = ListedColormap(['#FFAAAA', '#AAFFAA', '#AAAAFF'])
+cmap_bold = ListedColormap(['#FF0000', '#00FF00', '#0000FF'])
+
+# Plot the decision boundary
+plt.figure()
+plt.pcolormesh(xx, yy, Z, cmap=cmap_light)
+
+# Plot the training points
+plt.scatter(X[:, 0], X[:, 1], c=y, cmap=cmap_bold, edgecolor='k', s=20)
+plt.xlim(xx.min(), xx.max())
+plt.ylim(yy.min(), yy.max())
+plt.title("Decision boundary for EC1")
+plt.show()
 
 
 
