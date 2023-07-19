@@ -657,3 +657,13 @@ print("Confidence interval for EC2: ", confidence_interval_EC2)
 explainer_EC1 = shap.TreeExplainer(ensemble_EC1.named_estimators_['gb'])
 shap_values_EC1 = explainer_EC1.shap_values(X_train_EC1)
 shap.summary_plot(shap_values_EC1, X_train_EC1, feature_names=train_data_E1.columns.tolist())
+
+# Visualization:SHAP summary plot EC2
+
+# For the SHAP summary plot, you'll need to install the shap library and use a model that supports it
+explainer_EC2 = shap.TreeExplainer(ensemble_EC2.named_estimators_['gb'])
+shap_values_EC2 = explainer_EC2.shap_values(X_train_EC2)
+shap.summary_plot(shap_values_EC2, X_train_EC2, feature_names=train_data_E2.columns.tolist())
+
+
+
