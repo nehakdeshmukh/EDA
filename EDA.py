@@ -770,3 +770,9 @@ test_data_scaled = scaler.transform(test_data)
 ensemble_EC1.fit(X_train_EC1, y_train_EC1)
 ensemble_EC2.fit(X_train_EC2, y_train_EC2)
 
+# Make predictions on the test data
+predictions_EC1 = ensemble_EC1.predict_proba(test_data_scaled)[:, 1]
+predictions_EC2 = ensemble_EC2.predict_proba(test_data_scaled)[:, 1]
+
+
+
