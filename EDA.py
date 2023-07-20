@@ -749,3 +749,17 @@ plt.xlim(xx.min(), xx.max())
 plt.ylim(yy.min(), yy.max())
 plt.title("Decision boundary for EC2")
 plt.show()
+
+
+#Test Dataset 
+
+test_data = pd.read_csv(r"C:\Neha\kaggle Projects\Git hub\EDA\dataset/test.csv")
+
+# pre processing 
+
+# Store IDs for later use in a submission file
+test_id = test_data['id']
+
+# Drop 'id' column from test data
+test_data = test_data.drop(columns=['id'])
+
