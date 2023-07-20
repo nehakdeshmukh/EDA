@@ -774,5 +774,9 @@ ensemble_EC2.fit(X_train_EC2, y_train_EC2)
 predictions_EC1 = ensemble_EC1.predict_proba(test_data_scaled)[:, 1]
 predictions_EC2 = ensemble_EC2.predict_proba(test_data_scaled)[:, 1]
 
-
-
+# Create a submission dataframe
+submission = pd.DataFrame({
+    'id': test_id,
+    'EC1': predictions_EC1,
+    'EC2': predictions_EC2
+})
