@@ -763,3 +763,10 @@ test_id = test_data['id']
 # Drop 'id' column from test data
 test_data = test_data.drop(columns=['id'])
 
+# Preprocess test data
+test_data_scaled = scaler.transform(test_data)
+
+# Train the models on the original data
+ensemble_EC1.fit(X_train_EC1, y_train_EC1)
+ensemble_EC2.fit(X_train_EC2, y_train_EC2)
+
