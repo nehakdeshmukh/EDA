@@ -16,7 +16,7 @@ from sklearn.metrics import r2_score, mean_squared_error
 
 import plotly.graph_objects as go
 import plotly
-
+from plotly.offline import download_plotlyjs, init_notebook_mode,  plot
 
 data_train = pd.read_csv(r"C:\Users\nehak\Downloads\train.csv")
 
@@ -51,7 +51,7 @@ fig = go.Figure()
 fig.add_trace(go.Scatter(x=data_train["x"],y=data_train["y"],mode="markers"))
 fig.add_trace(go.Scatter(x=data_test["x"],y=y_pred))
 fig.show()
-
+plot(fig)
 
 
 
