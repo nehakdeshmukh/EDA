@@ -14,6 +14,9 @@ import pandas as pd
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import r2_score, mean_squared_error
 
+import plotly.graph_objects as go
+import plotly
+
 
 data_train = pd.read_csv(r"C:\Users\nehak\Downloads\train.csv")
 
@@ -44,7 +47,10 @@ y_pred = model.predict(X_test)
 r2 = r2_score(data_test["y"], y_pred)
 MSE = mean_squared_error(data_test["y"], y_pred)
 
-
+fig = go.Figure()
+fig.add_trace(go.Scatter(x=data_train["x"],y=data_train["y"],mode="markers"))
+fig.add_trace(go.Scatter(x=data_test["x"],y=y_pred))
+fig.show()
 
 
 
