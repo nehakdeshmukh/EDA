@@ -29,7 +29,7 @@ data_y = data_svm.iloc[:,-1:]
 
 train_x, test_x, train_y, test_y = train_test_split(data_x,data_y,test_size=0.2)
 
-model = SVC()
+model = SVC(kernel='rbf',random_state=5)
 model.fit(train_x, train_y)
 
 prediction = model.predict(test_x)
