@@ -31,3 +31,5 @@ classfier.fit(scalar_train_x,train_y)
 prediction = classfier.predict(scalar_test_x)
 
 acc = accuracy_score(test_y,prediction)
+
+
