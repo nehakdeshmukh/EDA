@@ -71,3 +71,20 @@ GV_model.fit(train_x, train_y)
 e_time= time.time()
 
 print("total time :", e_time-s_time)
+
+GV_model.best_params_
+
+tunned_DT_model = DecisionTreeRegressor(max_depth= 5,
+ max_features= 'sqrt',
+ max_leaf_nodes= None,
+ min_samples_leaf=10,
+ min_weight_fraction_leaf= 0.1,
+ splitter= 'best')
+
+tunned_DT_model.fit(train_x, train_y)
+tunned_DT_Prediction = DT_model.predict(test_x)
+tunned_DT_MSE = mean_squared_error(test_y, tunned_DT_Prediction)
+
+print('MAE:', mean_absolute_error(test_y, tunned_DT_Prediction))
+print('MSE:', mean_squared_error(test_y, tunned_DT_Prediction))
+print('RMSE:', np.sqrt(mean_squared_error(test_y, tunned_DT_Prediction)))
