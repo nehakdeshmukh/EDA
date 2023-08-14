@@ -65,3 +65,13 @@ SVM_GV_model.fit(train_x, train_y)
 e_time = time.time()
 
 print("total time :", e_time-s_time)
+
+SVM_GV_model.best_params_
+
+TSVM_model = SVR( C=1.0, epsilon=0.1, kernel= 'linear')
+TSVM_model.fit(train_x, train_y)
+TSVM_Prediction = TSVM_model.predict(test_x)
+
+print('SVM_MAE:', mean_absolute_error(test_y, TSVM_Prediction))
+print('SVM_MSE:', mean_squared_error(test_y, TSVM_Prediction))
+print('SVM_RMSE:', np.sqrt(mean_squared_error(test_y, TSVM_Prediction)))
