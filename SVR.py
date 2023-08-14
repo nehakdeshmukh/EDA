@@ -24,9 +24,6 @@ data.info()
 
 data.isnull().sum()
 
-
-# num_col = data.select_dtype(['int64'],'float64')
-
 data_x = data.loc[:, data.columns != 'tip_percentage']
 data_y = data.loc[:, 'tip_percentage']
 
@@ -42,8 +39,6 @@ data_x_updated = pd.DataFrame(pd.concat([num_col, cat_col], axis=1))
 train_x, test_x, train_y, test_y = train_test_split(
     data_x_updated, data_y, test_size=0.2)
 
-
-
 # SVM Regressor 
 
 SVM_model = SVR()
@@ -51,7 +46,22 @@ SVM_model.fit(train_x, train_y)
 SVM_Prediction = SVM_model.predict(test_x)
 SVM_MSE = mean_squared_error(test_y, SVM_Prediction)
 
-
 print('SVM_MAE:', mean_absolute_error(test_y, SVM_Prediction))
 print('SVM_MSE:', mean_squared_error(test_y, SVM_Prediction))
 print('SVM_RMSE:', np.sqrt(mean_squared_error(test_y, SVM_Prediction)))
+
+# SVR hyper parameter tunning 
+
+SVM_param_grid = {'kernel':['linear', 'poly', 'rbf', 'sigmoid'],
+                   'C':[1.0,1.2,1.5,5,7,10],
+                   'epsilon':[0.1,0.2,0.3,0.4,0.5]
+                   }
+
+SVM_GV_model = GridSearchCV(SVM_model, SVM_param_grid,
+                        cv=4, verbose=3)
+
+s_time = time.time()
+SVM_GV_model.fit(train_x, train_y)
+e_time = time.time()
+
+print("total time :", e_time-s_time)
