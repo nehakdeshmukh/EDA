@@ -46,3 +46,17 @@ RF_model = RandomForestClassifier()
 RF_model.fit(train_x,train_y)
 RF_prediction = RF_model.predict(test_x)
 RF_accuracy = accuracy_score(test_y,RF_prediction)
+
+# Hyper parameter tunning 
+
+RF_param={
+    "n_estimators":[10, 100,1000],
+    "criterion":["gini", "entropy", "log_loss"],
+    "max_features":['sqrt', 'log2'],
+    "max_depth":[2,3,4,5],
+    "min_samples_split":[2,3,4,5]
+                 }
+    
+
+GV_model = GridSearchCV(RF_model, RF_param, cv=5, verbose=3)
+
