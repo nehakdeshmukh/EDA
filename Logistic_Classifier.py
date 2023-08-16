@@ -41,3 +41,21 @@ LogR_model = LogisticRegression()
 LogR_model.fit(train_x,train_y)
 LogR_Prediction = LogR_model.predict(test_x)
 LogR_accuracy = accuracy_score(test_y,LogR_Prediction)
+
+# Hyper parameter tunning 
+
+logisticR_param={"solver":["newton-cg","lbfgs","liblinear","sag","saga"],
+                  "penalty":["none","l1","l2","elasticnet"],
+                  "C":[100,10,1.0,0.1,0.01] 
+                  }
+    
+
+GV_model = GridSearchCV(LogR_model, logisticR_param,
+                        cv=5, verbose=3)
+
+
+s_time = time.time()
+GV_model.fit(train_x, train_y)
+e_time = time.time()
+
+print("total time :", e_time-s_time)
