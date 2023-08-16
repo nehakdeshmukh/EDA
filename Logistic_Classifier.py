@@ -59,3 +59,11 @@ GV_model.fit(train_x, train_y)
 e_time = time.time()
 
 print("total time :", e_time-s_time)
+
+GV_model.best_params_
+
+TLogR_model = LogisticRegression(C=100, penalty='none', solver='sag')
+TLogR_model.fit(train_x,train_y)
+TLogR_Prediction = LogR_model.predict(test_x)
+TLogR_accuracy = accuracy_score(test_y,LogR_Prediction)
+
