@@ -60,3 +60,21 @@ RF_param={
 
 GV_model = GridSearchCV(RF_model, RF_param, cv=5, verbose=3)
 
+s_time = time.time()
+GV_model.fit(train_x, train_y)
+e_time = time.time()
+
+print("total time :", e_time-s_time)
+
+GV_model.best_params_
+
+# Tunned RF model 
+
+TRF_model = RandomForestClassifier(criterion='gini', max_depth=2,
+                                   max_features='sqrt',min_samples_split=2,
+                                   n_estimators=10)
+TRF_model.fit(train_x,train_y)
+TRF_prediction = TRF_model.predict(test_x)
+TRF_accuracy = accuracy_score(test_y,TRF_prediction)
+
+CM = confusion_matrix(test_y,TRF_prediction)
