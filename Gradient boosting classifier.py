@@ -65,4 +65,11 @@ e_time = time.time()
 
 print("total time :", e_time-s_time)
 
+GV_model.best_params_
 
+tgbk = GradientBoostingClassifier(learning_rate= 0.3, loss= 'log_loss', 
+                                 max_depth= 2, min_samples_split= 2,
+                                 n_estimators= 10)
+tgbk.fit(train_x, train_y)
+Tpred = tgbk.predict(test_x)
+Tacc=accuracy_score(test_y, pred)
