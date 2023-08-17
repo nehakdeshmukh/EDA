@@ -46,4 +46,23 @@ gbk.fit(train_x, train_y)
 pred = gbk.predict(test_x)
 acc=accuracy_score(test_y, pred)
 
+# Hyper parameter tunning 
+
+GBC_param={
+    "loss":['log_loss', 'deviance', 'exponential'],
+    "learning_rate":[0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8],
+    "n_estimators":[10,20,30,40,50,60,70,80,90],
+    "max_depth":[2,3,4,5],
+    "min_samples_split":[2,3,4,5]
+                 }
+
+GV_model = GridSearchCV(gbk, GBC_param, cv=5, verbose=3)
+
+
+s_time = time.time()
+GV_model.fit(train_x, train_y)
+e_time = time.time()
+
+print("total time :", e_time-s_time)
+
 
