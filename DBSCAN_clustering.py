@@ -27,3 +27,13 @@ fig.add_trace(go.Scatter(x=data_2.loc[:,'0'],y=data_2.loc[:,'1'],mode='markers')
 fig.show()
 plot(fig)
 
+eps = 5
+min_samples = 10
+
+dbscan = DBSCAN(eps=eps, min_samples=min_samples)
+dbscan.fit(data_1)
+
+print("Cluster labels:", dbscan.labels_)
+
+data_1.loc[:,'cluster'] = dbscan.labels_
+
