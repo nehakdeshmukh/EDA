@@ -59,7 +59,6 @@ plt.ylabel('Principal Component 2')
 plt.colorbar()
 plt.show()
 
-
 # using module 
 from sklearn.decomposition import PCA
 pca = PCA(n_components = 2)

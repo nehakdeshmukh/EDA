@@ -47,6 +47,7 @@ RF_model.fit(train_x,train_y)
 RF_prediction = RF_model.predict(test_x)
 RF_accuracy = accuracy_score(test_y,RF_prediction)
 
+CM = confusion_matrix(test_y,RF_prediction)
 # Hyper parameter tunning 
 
 RF_param={
