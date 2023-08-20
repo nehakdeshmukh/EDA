@@ -37,3 +37,11 @@ print("Cluster labels:", dbscan.labels_)
 
 data_1.loc[:,'cluster'] = dbscan.labels_
 
+
+
+fig = go.Figure()
+fig.add_trace(go.Scatter(x=data_1.loc[:,'0'],y=data_1.loc[:,'1'],
+                         mode='markers',marker_color=data_1['cluster'],
+                         marker=dict(colorscale='Viridis')))
+fig.show()
+plot(fig)
