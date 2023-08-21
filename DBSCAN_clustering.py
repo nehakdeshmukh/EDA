@@ -45,3 +45,8 @@ fig.add_trace(go.Scatter(x=data_1.loc[:,'0'],y=data_1.loc[:,'1'],
                          marker=dict(colorscale='Viridis')))
 fig.show()
 plot(fig)
+
+
+prediction = dbscan.fit_predict(data_2)
+
+
