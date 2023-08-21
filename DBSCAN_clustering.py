@@ -49,4 +49,14 @@ plot(fig)
 
 prediction = dbscan.fit_predict(data_2)
 
+fig = go.Figure()
 
+fig.add_trace(go.Scatter(x=data_2.loc[:,'0'],y=data_2.loc[:,'1'],
+                         mode='markers',marker_color=prediction,
+                         marker=dict(colorscale='Viridis')))
+
+fig.show()
+plot(fig)
+
+# Plot is not showing all points belongs to same cluster 
+# Model tunning is needed 
