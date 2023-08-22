@@ -85,3 +85,11 @@ for i in eps_values:
 
 dbscan = DBSCAN(eps=1.3, min_samples=10)
 dbscan.fit(data_2)
+
+prediction=dbscan.labels_
+fig = go.Figure()
+fig.add_trace(go.Scatter(x=data_2.loc[:,'0'],y=data_2.loc[:,'1'],
+                         mode='markers',marker_color=prediction,
+                         marker=dict(colorscale='Viridis')))
+fig.update_layout(title ='EPS: {} & min_samples: {}'.format(i,j))
+plot(fig)
