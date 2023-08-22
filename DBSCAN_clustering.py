@@ -79,3 +79,9 @@ for i in eps_values:
                                  marker=dict(colorscale='Viridis')))
         fig.update_layout(title ='EPS: {} & min_samples: {}'.format(i,j))
         plot(fig)
+        
+
+# from all plots I think below values are showing good clusters
+
+dbscan = DBSCAN(eps=1.3, min_samples=10)
+dbscan.fit(data_2)
