@@ -67,3 +67,5 @@ TLogR_model.fit(train_x,train_y)
 TLogR_Prediction = LogR_model.predict(test_x)
 TLogR_accuracy = accuracy_score(test_y,LogR_Prediction)
 
+
+TLogR_CM = confusion_matrix(test_y,LogR_Prediction)
