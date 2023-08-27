@@ -5,7 +5,7 @@ import pandas as pd
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
-from sklearn.metrics import accuracy_score ,ConfusionMatrixDisplay 
+from sklearn.metrics import accuracy_score ,confusion_matrix 
 
 
 data = pd.read_csv(r"C:\Users\nehak\Downloads\Iris.csv")
@@ -32,4 +32,4 @@ prediction = classfier.predict(scalar_test_x)
 
 acc = accuracy_score(test_y,prediction)
 
-
+CM = confusion_matrix(test_y,prediction)
