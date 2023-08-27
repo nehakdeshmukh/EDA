@@ -73,3 +73,5 @@ tgbk = GradientBoostingClassifier(learning_rate= 0.3, loss= 'log_loss',
 tgbk.fit(train_x, train_y)
 Tpred = tgbk.predict(test_x)
 Tacc=accuracy_score(test_y, pred)
+
+CM = confusion_matrix(test_y,pred)
