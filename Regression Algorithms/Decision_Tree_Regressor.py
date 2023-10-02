@@ -82,7 +82,7 @@ tunned_DT_model = DecisionTreeRegressor(max_depth= 5,
  splitter= 'best')
 
 tunned_DT_model.fit(train_x, train_y)
-tunned_DT_Prediction = DT_model.predict(test_x)
+tunned_DT_Prediction = tunned_DT_model.predict(test_x)
 tunned_DT_MSE = mean_squared_error(test_y, tunned_DT_Prediction)
 
 print('MAE:', mean_absolute_error(test_y, tunned_DT_Prediction))
